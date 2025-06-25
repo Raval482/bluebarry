@@ -1,0 +1,37 @@
+.search-glass{
+    position: absolute;
+    right: 10px;
+    top: 30%;
+}
+
+.drop-down-icon{
+    position: absolute;
+    left : 25%;
+    top: 30%;
+}
+.drop-down-items{
+    box-shadow: 0 4px 5px #ccc;
+    border : 1px solid #ccc;
+    background-clip: padding-box;
+    outline: none;
+    text-align: left;
+    background-color: #fff;
+    margin: 2px 0px;
+    width: 230px;
+    border-radius: 10px;
+    position: absolute;
+    transition:all 0.3s ease-in-out ;
+
+}
+.drop-down-items p {
+    padding: 5px 20px;
+    cursor: pointer;
+    line-height: 28px;
+    transition: all 0.5s ease-in-out;
+}
+
+.text-three{
+    font-size: 14px;
+    color : #777;
+    font-weight: 300;
+}
