@@ -1,0 +1,120 @@
+<!-- index.html
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Socket.IO Chat Test</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <h1>Socket.IO Chat</h1>
+    <input type="text" id="message" placeholder="Type your message..." />
+    <button id="sendData">Send</button>
+
+    <h1>Client Id :- <span id="clientId"></span></h1>
+   
+
+    <ul id="chatBox"></ul>
+
+    <ul id="chatBox2"></ul>
+
+    <p id="inforamation"></p>
+
+  <script>
+    const socket = io();
+
+    socket.on('connect', () => {
+        console.log('Connected:', socket.id);
+    });
+
+    socket.on("id", (data) => {
+        document.getElementById("clientId").innerText = data;
+    });
+  
+    socket.on("user",(data)=>{
+        const inforamation = document.getElementById("inforamation")
+        inforamation.innerText = data
+    })
+
+    // 🔥 Yeh message dusre clients se aaya hai
+    // socket.on("send-message", (data) => {
+    //     const ul = document.getElementById('chatBox2');
+    //     const li = document.createElement('li');
+    //     li.textContent = 'Other: ' + data;
+    //     ul.appendChild(li);
+    // });
+
+    // function sendMessage() {
+    //     const msg = document.getElementById('message').value;
+        
+    //     // Emit to server
+    //     socket.emit('recive-message', msg);
+
+    //     // Apne UI me bhi show karo
+    //     const ul = document.getElementById('chatBox');
+    //     const li = document.createElement('li');
+    //     li.textContent = 'You: ' + msg;
+    //     ul.appendChild(li);
+
+    //     document.getElementById('message').value = '';
+    // }
+</script>
+
+</body>
+
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Private Chat by Username</title>
+</head>
+<body>
+  <h2>Private Message (via Username)</h2>
+
+  <p><strong>Step 1:</strong> Register your name:</p>
+  <input type="text" id="myName" placeholder="Enter your name" />
+  <button onclick="register()">Register</button>
+
+  <p><strong>Step 2:</strong> Send private message:</p>
+  <input type="text" id="targetName" placeholder="Send to (username)" />
+  <input type="text" id="msg" placeholder="Your message" />
+  <button onclick="sendMessage()">Send</button>
+
+  <h3>Messages:</h3>
+  <ul id="messages"></ul>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on('connect', () => {
+      console.log('Connected with ID:', socket.id);
+    });
+
+    function register() {
+      const name = document.getElementById('myName').value;
+      socket.emit('register', name);
+      alert(`Registered as "${name}"`);
+    }
+
+    function sendMessage() {
+      const toName = document.getElementById('targetName').value;
+      const message = document.getElementById('msg').value;
+      socket.emit('private-message', { toName, message });
+    }
+
+    socket.on('receive-message', (data) => {
+      const li = document.createElement('li');
+      li.textContent = `From ${data.from}: ${data.message}`;
+      document.getElementById('messages').appendChild(li);
+    });
+  </script>
+</body>
+</html>
